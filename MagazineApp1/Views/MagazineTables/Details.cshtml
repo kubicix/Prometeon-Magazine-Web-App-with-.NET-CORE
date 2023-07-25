@@ -1,0 +1,49 @@
+﻿@model MagazineApp1.Models.MagazineTable
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MagazineTable</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Magtitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Magtitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Magdesc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Magdesc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Magurl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Magurl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Magdate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Magdate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Magimg)
+        </dt>
+        <dd class="col-sm-10">
+            <!-- Resmin yolu olarak images klasörünü belirtiyoruz -->
+            <img src="~/images/@Model?.Magimg" alt="Magazine Image" class="img-thumbnail" style="max-width: 300px; max-height: 400px;" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Magid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

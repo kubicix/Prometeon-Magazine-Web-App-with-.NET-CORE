@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MagazineApp1.Models.MagazineTable>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Magtitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Magdesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Magurl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Magdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Magimg)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Magtitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Magdesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Magurl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Magdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Magimg)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Magid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Magid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Magid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

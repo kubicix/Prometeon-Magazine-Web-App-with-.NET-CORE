@@ -21,8 +21,8 @@
 @{
 
     @model List<MagazineApp1.Models.MagazineTable>
-    @inject MagazineApp1.Services.MagazineServices MagazineServices
-    
+    @inject MagazineApp1.Services.MagazineServices MagazineService
+    @using X.PagedList
 
     <!DOCTYPE html>
     <html lang="en">
@@ -64,7 +64,7 @@
                         <div class="container mt-4">
                             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 justify-content-center">
                                 <!-- Dergi Kapakları -->
-                                @foreach (var magazine in MagazineServices.GetMagazines())
+                                @foreach (var magazine in MagazineService.GetMagazines())
                                 {
                                     <div class="card" style="width: 18rem; height: 550px;">
                                         <img class="card-img-top rounded" src="~/images/@magazine.Magimg" alt="Card image cap" style="object-fit: cover; height: 400px;">
@@ -79,7 +79,40 @@
                         </div>
 
 
-                        
+                        <!-- Sayfalama Bağlantıları -->
+                        @if (ViewData["TotalPages"] != null)
+                        {
+                            int totalPages = (int)ViewData["TotalPages"];
+                            int currentPage = (int)ViewData["CurrentPage"];
+
+                            if (totalPages > 1)
+                            {
+                                <ul class="pagination justify-content-center">
+                                    @if (currentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })">Previous</a>
+                                        </li>
+                                    }
+
+                                    @for (int i = 1; i <= totalPages; i++)
+                                    {
+                                        <li class="page-item @(currentPage == i ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                        </li>
+                                    }
+
+                                    @if (currentPage < totalPages)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">Next</a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        }
+
+
 
 
 
