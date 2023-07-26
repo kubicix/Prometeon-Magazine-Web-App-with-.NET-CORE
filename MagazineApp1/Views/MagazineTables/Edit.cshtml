@@ -37,6 +37,19 @@
                 <label asp-for="Magimg" class="control-label">Resim Yükle</label>
                 <input type="file" asp-for="Magimg" class="form-control" accept=".jpg, .jpeg, .png" />
                 <span asp-validation-for="Magimg" class="text-danger"></span>
+
+                @if (!string.IsNullOrEmpty(Model.Magimg))
+                {
+                    <p>Mevcut Resim: @Model.Magimg</p>
+                    <div class="text-center">
+                        <a href="~/images/@Model.Magimg" download>Resmi İndir</a>
+                    </div>
+                    <div class="text-center">
+                        <img src="~/images/@Model.Magimg" alt="Mevcut Resim" style="max-width: 300px; max-height: 200px; display: inline-block; margin: 10px auto; border-radius: 10px;" />
+                    </div>
+
+                }
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -45,6 +58,34 @@
 
     </div>
 </div>
+
+<script>
+    // Resim yüklendiğinde mevcut resmi input alanına yükleme
+    var fileInput = document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change', function () {
+        var file = fileInput.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var img = new Image();
+                img.src = reader.result;
+                img.onload = function () {
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = this.width;
+                    canvas.height = this.height;
+                    ctx.drawImage(this, 0, 0);
+                    var dataURL = canvas.toDataURL(file.type);
+                    fileInput.labels[0].innerText = 'Mevcut Resim: ' + file.name;
+                    // dataURL'yi input alanına aktar
+                    var hiddenInput = document.querySelector('input[type="hidden"][name="Magimg"]');
+                    hiddenInput.value = dataURL;
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
 <div>
     <a asp-action="Index">Back to List</a>
