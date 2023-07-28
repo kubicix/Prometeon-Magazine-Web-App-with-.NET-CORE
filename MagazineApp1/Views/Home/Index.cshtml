@@ -29,7 +29,7 @@
     <head>
         <link rel="icon" type="image/png" href="/images/logo.png">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Prometeon Staj Başvuru Formu</title>
+        <title>Prometeon Magazines</title>
         <link href="~/css/Basvuru/material-design-iconic-font.min.css" rel="stylesheet" media="all">
         <link href="~/css/Basvuru/font-awesome.min.css" rel="stylesheet" media="all">
         <link href="~/css/Basvuru/select2.min.css" rel="stylesheet" media="all">
@@ -62,17 +62,30 @@
                     </div>
                     <div class="card-body">
                         <div class="container mt-4">
+                            <!-- Arama Çubuğu -->
+                            <div class="input-group mb-3 justify-content-center">
+                                <input type="text" id="search-text" class="form-control" placeholder="Ara..." aria-label="Ara..." aria-describedby="search-button" style="max-width: 300px;">
+                                <button class="btn btn-primary btn-sm" type="button" id="search-button" style="background-color: #212B59;">Ara</button>
+                            </div>
+
+
+
                             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 justify-content-center">
                                 <!-- Dergi Kapakları -->
                                 @foreach (var magazine in MagazineServices.GetMagazines())
                                 {
-                                    <div class="card mx-2 my-2" style="width: 18rem; height: 550px;">
+
+                                    <div class="card mx-2 my-2" style="width: 18rem; height: 550px; background-color: #FFF;">
+                                        @{
+                                            // İlk 10 karakteri alarak sadece tarih kısmını elde ediyoruz
+                                            string tarih = magazine.Magdate.ToString().Substring(0, 10);
+                                        }
+                                        <p class="text-center card-date" style="font-size: 0.8rem;">@tarih</p>
                                         <img class="card-img-top mt-2 mb-2" src="~/images/@magazine.Magimg" alt="Card image cap" style="object-fit: contain; max-height: 300px; max-width: 100%; width: 100%; height: 300px;" />
                                         <h5 class="card-title mt-0 text-center" style="font-weight: bold; font-size: 1.2rem;">@magazine.Magtitle</h5>
-                                        <textarea class="form-control text-center mt-2 mb-2" rows="4" cols="30" readonly style="resize: none;">@magazine.Magdesc</textarea>
-                                        <a href="@Html.Raw(magazine.Magurl)" class="btn btn-primary btn-sm mb-0 align-items-center">Pdf İndir</a>
+                                        <textarea class="form-control text-center mt-2 mb-2 text-justify card-desc" rows="4" cols="30" readonly style="resize: none; text-align: justify;">@magazine.Magdesc</textarea>
+                                        <a href="@Html.Raw(magazine.Magurl)" class="btn btn-sm mb-0 align-items-center" style="background-color: #212B59;">Pdf İndir</a>
                                     </div>
-
                                 }
 
                             </div>
@@ -81,6 +94,7 @@
                 </div>
             </div>
         </div>
+
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -88,6 +102,44 @@
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/analytics.js/2.9.1/analytics.min.js" integrity="sha512-KwS/w5tBq+G3V7mmQE6rfs1wVz9C63xqcSJgc9n5QDx+nwWc+c5ElomAuBPifOyMRhAWsxMIVjKzLwAtTAYj+A==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/analytics.js/2.9.1/analytics.js" integrity="sha512-yTSywTFFJ8QrIQWqS0wRmdBc5zu+xkixnT6Db1SATYj9oSabvhS1OOWvZIVegWQyXNg0lkIL5f64GlxCKCEE1w==" crossorigin="anonymous"></script>
+
+        <script>
+            // Sayfa yüklendiğinde çalışacak olan fonksiyon
+            $(document).ready(function () {
+                // Arama düğmesine tıklama işlemi
+                $("#search-button").click(function () {
+                    var searchText = $("#search-text").val().toLowerCase(); // Aranan metni alıyoruz ve küçük harfe dönüştürüyoruz
+
+                    // Eğer arama metni boş ise, tüm dergi kartlarını gösteriyoruz
+                    if (searchText === '') {
+                        $(".card").show();
+                    } else {
+                        var found = false; // Arama sonucunda eşleşme olup olmadığını takip etmek için değişken
+                        // Dergi kartlarını dolaşarak aranan metne göre filtreleme yapıyoruz
+                        $(".card").each(function () {
+                            var cardTitle = $(this).find(".card-title").text().toLowerCase(); // Dergi başlığını alıyoruz ve küçük harfe dönüştürüyoruz
+                            var cardDesc = $(this).find(".card-desc").text().toLowerCase(); // Dergi açıklamasını alıyoruz ve küçük harfe dönüştürüyoruz
+                            var cardDate = $(this).find(".card-date").text().toLowerCase(); // Dergi tarihini alıyoruz ve küçük harfe dönüştürüyoruz
+
+                            // Aranan metin başlıkta, açıklamada veya tarihte geçiyorsa kartı gösteriyoruz, aksi takdirde gizliyoruz
+                            if (cardTitle.indexOf(searchText) > -1 || cardDesc.indexOf(searchText) > -1 || cardDate.indexOf(searchText) > -1) {
+                                $(this).show();
+                                found = true;
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+
+                        // Eğer aranan metne uyan dergi kartı yoksa, alert ile uyarı veriyoruz
+                        if (!found) {
+                            alert("Arama sonucunda eşleşen dergi bulunamadı!");
+                            $(".card").show();
+                        }
+                    }
+                });
+            });
+        </script>
+
     </body>
     </html>
 
