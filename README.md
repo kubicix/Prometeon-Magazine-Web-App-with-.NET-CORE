@@ -47,7 +47,6 @@ The Prometeon Magazine Portal is a web application built on .NET Core MVC 6.0 th
      
 ## Screenshots
 
-![1](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/579bb219-d418-42fe-8058-b158e08f39f6)
 ![2](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/69f57108-f00b-445d-8e00-b205f9de5a8e)
 ![3](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/837be4ad-ef72-4266-a136-d7fe7762776f)
 ![4](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/e822d5ca-e0be-4f5a-98d6-9010063c6654)
