@@ -46,8 +46,12 @@ The Prometeon Magazine Portal is a web application built on .NET Core MVC 6.0 th
    - Edit existing magazines' information or delete them as needed.
      
 ## Screenshots
+![thumbnail_searchbar_update_magaazines](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/2f6b9056-fd84-47c1-8e74-e6d60fcd3d6e)
 
-![2](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/69f57108-f00b-445d-8e00-b205f9de5a8e)
-![3](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/837be4ad-ef72-4266-a136-d7fe7762776f)
-![4](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/e822d5ca-e0be-4f5a-98d6-9010063c6654)
-![5](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/491a2334-f1ef-433c-9cab-dffd31b40110)
+![mag_app_edit_panel](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/c7888d32-9b26-4d46-b1db-61c621b32d5a)
+
+![mag_app_details_panel](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/05ed129a-7b45-45d7-89e9-8f8f3048645c)
+
+![thumbnail_Magazine page](https://github.com/kubicix/Prometeon-Magazine-Web-App-with-.NET-CORE/assets/96316375/7a8ab921-df66-4034-802e-d5d61d221baa)
+
+
